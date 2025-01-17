@@ -1,12 +1,37 @@
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import FinanceDashboard from './screen/dashboard';
+import DualColorScreen from './screen/chatBot';
+import MyTabBars from './controller/tabBar'; // Custom TabBar
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NavigationContainer>
+      <Tab.Navigator tabBar={(props) => <MyTabBars {...props} />}>
+        <Tab.Screen
+          name="Dashboard"
+          component={FinanceDashboard}
+          options={{
+            tabBarLabel: 'Dashboard', // Đúng thuộc tính tabBarLabel
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="Chatbot"
+          component={DualColorScreen}
+          options={{
+            tabBarLabel: 'Chatbot', // Đúng thuộc tính tabBarLabel
+            headerShown: false,
+          }}
+        />
+      </Tab.Navigator>
       <StatusBar style="auto" />
-    </View>
+    </NavigationContainer>
   );
 }
 
